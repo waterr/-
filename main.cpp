@@ -4,30 +4,30 @@
 #include <time.h>
 #include <stdlib.h>
 
-#define M 2    //ÔËËã·û¸öÊı(²Ù×÷Êı¸öÊı¼´ÎªM+1)
+#define M 2    //è¿ç®—ç¬¦ä¸ªæ•°(æ“ä½œæ•°ä¸ªæ•°å³ä¸ºM+1)
 
-#define MP 4        //ËÄÔòÔËËã
+#define MP 4        //å››åˆ™è¿ç®—
 #define MV 10
-//¡Â
+//Ã·
 using namespace std;
 
-char op[M];     //ÔËËã·û
-int value[M+1];     //²Ù×÷Êı
-vector<char> s_op;  //·ûºÅÕ»
-vector<int> s_value;        //ÊıÖµÕ»
-int N = 30;      //³öÌâÊıÁ¿
-int flag = 1;   //ÊÇ·ñÊä³ö´ğ°¸(1±íÊ¾Êä³ö£¬0±íÊ¾²»Êä³ö)
-int fsave = 1;  //ÊÇ·ñ±£´æÊÔÌâ(1±íÊ¾±£´æ£¬0±íÊ¾²»±£´æ)
-int final_result; //¼ÆËã½á¹û
+char op[M];     //è¿ç®—ç¬¦
+int value[M+1];     //æ“ä½œæ•°
+vector<char> s_op;  //ç¬¦å·æ ˆ
+vector<int> s_value;        //æ•°å€¼æ ˆ
+int N = 30;      //å‡ºé¢˜æ•°é‡
+int flag = 1;   //æ˜¯å¦è¾“å‡ºç­”æ¡ˆ(1è¡¨ç¤ºè¾“å‡ºï¼Œ0è¡¨ç¤ºä¸è¾“å‡º)
+int fsave = 1;  //æ˜¯å¦ä¿å­˜è¯•é¢˜(1è¡¨ç¤ºä¿å­˜ï¼Œ0è¡¨ç¤ºä¸ä¿å­˜)
+int final_result; //è®¡ç®—ç»“æœ
 
 
-int level(char op)      //·ÖÅäÔËËã·ûÓÅÏÈ¼¶±ğ
+int level(char op)      //åˆ†é…è¿ç®—ç¬¦ä¼˜å…ˆçº§åˆ«
 {
     if(op == '*'||op=='/') return 2;
     else return 1;
 }
 
-int cal(char op, int value1, int value2)         //¶ÔÁ½¸ö²Ù×÷Êı½øĞĞ¼ÆËã
+int cal(char op, int value1, int value2)         //å¯¹ä¸¤ä¸ªæ“ä½œæ•°è¿›è¡Œè®¡ç®—
 {
     int result;
     switch(op)
@@ -51,7 +51,7 @@ int cal(char op, int value1, int value2)         //¶ÔÁ½¸ö²Ù×÷Êı½øĞĞ¼ÆËã
 }
 
 
-int calculate()         //¶ÔÕû¸ö±í´ïÊ½½øĞĞÔËËã
+int calculate()         //å¯¹æ•´ä¸ªè¡¨è¾¾å¼è¿›è¡Œè¿ç®—
 {
     s_op.clear();
     s_value.clear();
@@ -94,24 +94,24 @@ int calculate()         //¶ÔÕû¸ö±í´ïÊ½½øĞĞÔËËã
         }
     }
     int result = s_value.at(0);
-    return result;      //·µ»ØÔËËã½á¹û
+    return result;      //è¿”å›è¿ç®—ç»“æœ
 }
 
-void check()            //¶ÔÊÔÌâ½øĞĞ¼ì²éÈ·±£ÄÜµ½ÓĞĞ§¼ÆËã½á¹û
+void check()            //å¯¹è¯•é¢˜è¿›è¡Œæ£€æŸ¥ç¡®ä¿èƒ½åˆ°æœ‰æ•ˆè®¡ç®—ç»“æœ
 {
     int divide = -1;
     for(int i=0; i<M; i++)
     {
 
-        if(op[i] == '/')            //µ±ÔËËã·ûÎª'/'
+        if(op[i] == '/')            //å½“è¿ç®—ç¬¦ä¸º'/'
         {
-            if(value[i+1] == 0)         //´¦Àí³ıÊıÎª0µÄÇé¿ö
+            if(value[i+1] == 0)         //å¤„ç†é™¤æ•°ä¸º0çš„æƒ…å†µ
             {
                 int t = value[i+1];
                 while(t == 0) t = rand()%MP;
                 value[i+1] = t;
             }
-            if(value[i]%value[i+1]!=0)          //´¦Àí²»ÄÜÕû³ıµÄÇé¿ö
+            if(value[i]%value[i+1]!=0)          //å¤„ç†ä¸èƒ½æ•´é™¤çš„æƒ…å†µ
             {
                 if(divide == -1)
                 {
@@ -147,7 +147,7 @@ void check()            //¶ÔÊÔÌâ½øĞĞ¼ì²éÈ·±£ÄÜµ½ÓĞĞ§¼ÆËã½á¹û
 }
 
 
-char gene_op(int t)         //Éú³ÉÔËËã·û
+char gene_op(int t)         //ç”Ÿæˆè¿ç®—ç¬¦
 {
     char op;
     switch(t)
@@ -169,18 +169,18 @@ char gene_op(int t)         //Éú³ÉÔËËã·û
     return op;
 }
 
-void save()         //±£´æÊÔÌâµ½ÎÄ±¾ÎÄµµ
+void save()         //ä¿å­˜è¯•é¢˜åˆ°æ–‡æœ¬æ–‡æ¡£
 {
     FILE *p = fopen("F://problem.txt","a");
     /*
     for(int i=0; i<M; i++) fprintf(p,"%2d %c ",value[i],op[i]);
     fprintf(p,"%2d = ",value[M]);
     */
-    for(int i=0; i<M; i++)        //´òÓ¡ÊÔÌâ
+    for(int i=0; i<M; i++)        
     {
         fprintf(p,"%2d ",value[i]);
-        if(op[i]=='*') fprintf(p,"¡Á");
-        else if(op[i]=='/') fprintf(p,"¡Â");
+        if(op[i]=='*') fprintf(p,"Ã—");
+        else if(op[i]=='/') fprintf(p,"Ã·");
         else fprintf(p,"%c",op[i]);
     }
     fprintf(p,"%2d = ",value[M]);
@@ -193,11 +193,11 @@ void save()         //±£´æÊÔÌâµ½ÎÄ±¾ÎÄµµ
 
 void print()
 {
-    for(int i=0; i<M; i++)        //´òÓ¡ÊÔÌâ
+    for(int i=0; i<M; i++)        //æ‰“å°è¯•é¢˜
     {
         printf("%2d ",value[i]);
-        if(op[i]=='*') printf("¡Á");
-        else if(op[i]=='/') printf("¡Â");
+        if(op[i]=='*') printf("Ã—");
+        else if(op[i]=='/') printf("Ã·");
         else printf("%c",op[i]);
     }
     printf("%2d = ",value[M]);
@@ -206,27 +206,27 @@ void print()
    // final_result = calculate();
 
 
-    if(flag == 1)                   //ÊÇ·ñ´òÓ¡±í´ïÊ½´ğ°¸
+    if(flag == 1)                   //æ˜¯å¦æ‰“å°è¡¨è¾¾å¼ç­”æ¡ˆ
     {
         final_result = calculate();
         printf("%d",final_result);
     }
     printf("\n");
-    if(fsave == 1) save();          //ÊÇ·ñ±£´æ±í´ïÊ½µ½ÎÄ±¾ÎÄµµ
+    if(fsave == 1) save();          //æ˜¯å¦ä¿å­˜è¡¨è¾¾å¼åˆ°æ–‡æœ¬æ–‡æ¡£
 }
 
-void gene_prob()            //Éú³Éµ¥¸öÊÔÌâ
+void gene_prob()            //ç”Ÿæˆå•ä¸ªè¯•é¢˜
 {
-    for(int i=0; i<M; i++)      //Ëæ»úÉú³ÉÔËËã·ûºÍ²Ù×÷Êı
+    for(int i=0; i<M; i++)      //éšæœºç”Ÿæˆè¿ç®—ç¬¦å’Œæ“ä½œæ•°
     {
         int t_op = rand()%MP;
         op[i] = gene_op(t_op);
         value[i] = rand()%MV;
     }
     value[M] = rand()%MV;
-    check();                    //¶ÔÉú³ÉµÄ±í´ïÊ½×ö¼ì²éÈ·±£ÄÜµÃµ½ÓĞĞ§½á¹û
+    check();                    //å¯¹ç”Ÿæˆçš„è¡¨è¾¾å¼åšæ£€æŸ¥ç¡®ä¿èƒ½å¾—åˆ°æœ‰æ•ˆç»“æœ
     /*
-    for(int i=0; i<M; i++)        //´òÓ¡ÊÔÌâ
+    for(int i=0; i<M; i++)        //æ‰“å°è¯•é¢˜
         printf("%2d %c ",value[i],op[i]);
     printf("%2d =  ",value[M]);
       */
@@ -238,7 +238,7 @@ void gene_prob()            //Éú³Éµ¥¸öÊÔÌâ
 
 
 
-void gene_probs()            //Éú³ÉÈ«²¿ÊÔÌâ
+void gene_probs()            //ç”Ÿæˆå…¨éƒ¨è¯•é¢˜
 {
     for(int i=0; i<N; i++)
     {
@@ -250,7 +250,7 @@ int main()
 {
 
     srand((unsigned)time(NULL));
-    gene_probs();       //Éú³ÉÊÔÌâ
+    gene_probs();       //ç”Ÿæˆè¯•é¢˜
 
     return 0;
 
